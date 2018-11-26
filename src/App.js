@@ -1,3 +1,4 @@
+// @flow
 import 'rc-slider/assets/index.css';
 import React, {Component} from 'react';
 import Slider from 'rc-slider';
@@ -5,9 +6,35 @@ import styled from 'styled-components';
 
 const Range = Slider.Range;
 
+type SliderType = {
+  title_label: string,
+  left_label: string,
+  right_label: string,
+  value: SliderValue
+}
 
-class App extends Component {
-  constructor(props) {
+type SliderValue = [number, number, number];
+
+type State = {
+  new: {
+    title: string,
+    left: string,
+    right: string,
+  },
+  sliders: Array<SliderType>,
+}
+
+type Props = {
+  new: {
+    title: string,
+    left: string,
+    right: string,
+  },
+  sliders: Array<SliderType>,
+}
+
+class App extends Component<State, Props> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       new: {
@@ -16,12 +43,10 @@ class App extends Component {
         right: ''
       },
       sliders: [],
-      pointsPossible: 100,
-      score: 0
     };
   }
 
-  handleChange = (value, i) => {
+  handleChange = (value: SliderValue, i: number) => {
     let sliders = [...this.state.sliders];
     sliders[i].value = value;
     this.setState({
@@ -41,15 +66,15 @@ class App extends Component {
     )
   };
 
-  removeSlider(i) {
+  removeSlider(i: number) {
     let sliders = [...this.state.sliders];
-    sliders.splice(i, 1)
+    sliders.splice(i, 1);
     this.setState({
       sliders,
     });
   }
 
-  renderSlider = (slider, i) => {
+  renderSlider = (slider: Slider, i: number) => {
     return (
       <SliderContainer key={i} >
         <div style={style.sliderLabelContainer}>
@@ -72,32 +97,32 @@ class App extends Component {
     );
   };
 
-  titleChange = (e) => {
+  titleChange = (e: KeyboardEvent) => {
     this.setState({
       ...this.state,
       new: {
         ...this.state.new,
-        title: e.target.value
-      }
-    })
-  }
-
-  leftChange = (e) => {
-    this.setState({
-      ...this.state,
-      new: {
-        ...this.state.new,
-        left: e.target.value
+        title: e.key
       }
     })
   };
 
-  rightChange = (e) => {
+  leftChange = (e: KeyboardEvent) => {
     this.setState({
       ...this.state,
       new: {
         ...this.state.new,
-        right: e.target.value
+        left: e.key
+      }
+    })
+  };
+
+  rightChange = (e: KeyboardEvent) => {
+    this.setState({
+      ...this.state,
+      new: {
+        ...this.state.new,
+        right: e.key
       }
     })
   };
