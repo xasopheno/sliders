@@ -136,7 +136,8 @@ class App extends Component<State, Props> {
       value: [20, 50, 80],
     };
 
-    sliders.push(new_slider);
+    sliders = [new_slider, ...sliders];
+
     this.setState({
       new: {
         title: '',
@@ -278,9 +279,6 @@ const DeleteButton = styled.div`
 `;
 
 const style = {
-  deleteButton: {
-
-  },
   sliderLabelContainer: {display: 'flex', flexDirection: 'column'},
 };
 
