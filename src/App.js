@@ -6,14 +6,14 @@ import styled from 'styled-components';
 
 const Range = Slider.Range;
 
+type SliderValue = [number, number, number];
+
 type SliderType = {
   title_label: string,
   left_label: string,
   right_label: string,
   value: SliderValue
 }
-
-type SliderValue = [number, number, number];
 
 type State = {
   new: {
@@ -97,32 +97,32 @@ class App extends Component<State, Props> {
     );
   };
 
-  titleChange = (e: KeyboardEvent) => {
+  titleChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
       new: {
         ...this.state.new,
-        title: e.key
+        title: e.currentTarget.value
       }
     })
   };
 
-  leftChange = (e: KeyboardEvent) => {
+  leftChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
       new: {
         ...this.state.new,
-        left: e.key
+        left: e.currentTarget.value
       }
     })
   };
 
-  rightChange = (e: KeyboardEvent) => {
+  rightChange = (e: SyntheticEvent<HTMLInputElement>) => {
     this.setState({
       ...this.state,
       new: {
         ...this.state.new,
-        right: e.key
+        right: e.currentTarget.value
       }
     })
   };
